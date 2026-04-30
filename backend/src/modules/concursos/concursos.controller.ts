@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ConcursosService } from './concursos.service';
 
 @Controller('concursos')
@@ -6,8 +6,14 @@ export class ConcursosController {
   constructor(private readonly concursosService: ConcursosService) {}
 
   @Get()
-  findAll() {
-    return this.concursosService.findAll();
+  findAll(
+    @Query('estado') estado?: string,
+    @Query('area') area?: string,
+    @Query('banca') banca?: string,
+    @Query('status') status?: string,
+    @Query('sort') sort?: string,
+  ) {
+    return this.concursosService.findAll({ estado, area, banca, status, sort });
   }
 
   @Get(':id')
