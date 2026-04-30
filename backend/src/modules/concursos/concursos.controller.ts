@@ -5,6 +5,26 @@ import { ConcursosService } from './concursos.service';
 export class ConcursosController {
   constructor(private readonly concursosService: ConcursosService) {}
 
+  @Get('destaques/melhores-salarios')
+  melhoresSalarios() {
+    return this.concursosService.melhoresSalarios();
+  }
+
+  @Get('destaques/mais-vagas')
+  maisVagas() {
+    return this.concursosService.maisVagas();
+  }
+
+  @Get('destaques/ultimos-adicionados')
+  ultimosAdicionados() {
+    return this.concursosService.ultimosAdicionados();
+  }
+
+  @Get('destaques/ultimos-dias')
+  ultimosDias() {
+    return this.concursosService.ultimosDias();
+  }
+
   @Get()
   findAll(
     @Query('estado') estado?: string,

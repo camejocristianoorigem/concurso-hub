@@ -34,4 +34,35 @@ export class ConcursosService {
       where: { id },
     });
   }
+
+  async melhoresSalarios() {
+    return this.prisma.concurso.findMany({
+      orderBy: { salario: 'desc' },
+      take: 5,
+    });
+  }
+
+  async maisVagas() {
+    return this.prisma.concurso.findMany({
+      orderBy: { vagas: 'desc' },
+      take: 5,
+    });
+  }
+
+  async ultimosAdicionados() {
+    return this.prisma.concurso.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 5,
+    });
+  }
+
+  async ultimosDias() {
+    return this.prisma.concurso.findMany({
+      where: {
+        status: 'aberto',
+      },
+      orderBy: { dataInscricaoFim: 'asc' },
+      take: 5,
+    });
+  }
 }
