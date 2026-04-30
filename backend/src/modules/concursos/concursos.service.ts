@@ -5,6 +5,10 @@ import { PrismaService } from '../../database/prisma.service';
 export class ConcursosService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async clear() {
+    return this.prisma.concurso.deleteMany();
+  }
+
   async findAll(filters?: {
     estado?: string;
     area?: string;
@@ -58,9 +62,7 @@ export class ConcursosService {
 
   async ultimosDias() {
     return this.prisma.concurso.findMany({
-      where: {
-        status: 'aberto',
-      },
+      where: { status: 'aberto' },
       orderBy: { dataInscricaoFim: 'asc' },
       take: 5,
     });

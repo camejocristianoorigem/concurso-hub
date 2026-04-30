@@ -1,9 +1,14 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Query } from '@nestjs/common';
 import { ConcursosService } from './concursos.service';
 
 @Controller('concursos')
 export class ConcursosController {
   constructor(private readonly concursosService: ConcursosService) {}
+
+  @Delete('clear')
+  clear() {
+    return this.concursosService.clear();
+  }
 
   @Get('destaques/melhores-salarios')
   melhoresSalarios() {
