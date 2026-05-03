@@ -24,4 +24,31 @@ model Concurso {
   dataInscricaoFim    DateTime
   linkEdital          String
   createdAt           DateTime @default(now())
+  matches             Match[]
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  password   String
+  estado     String?
+  area       String?
+  nivel      String?
+  salarioMin Float?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  matches    Match[]
+}
+
+model Match {
+  id         String   @id @default(cuid())
+  userId     String
+  concursoId String
+  score      Float
+  createdAt  DateTime @default(now())
+  concurso   Concurso @relation(fields: [concursoId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, concursoId])
 }
